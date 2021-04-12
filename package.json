@@ -1,0 +1,33 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Blog",
+  "keywords": [
+    "MEAN"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AleksandrChistov/mean.git"
+  },
+  "author": "Alexander Chistov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AleksandrChistov/mean/issues"
+  },
+  "homepage": "https://github.com/AleksandrChistov/mean#readme",
+  "dependencies": {
+    "express": "*",
+    "mongoose": "*",
+    "bcrypt": "*",
+    "passport": "*",
+    "passport-jwt": "*",
+    "body-parser": "*",
+    "cors": "*",
+    "jsonwebtoken": "*"
+  }
+}
