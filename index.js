@@ -1,14 +1,20 @@
 const express = require('express');
 const cors = require('cors');
-const bodyPArser = require('body-parser');
+// const bodyParser = require('body-parser'); // deprecated
 const mongoose = require('mongoose');
 const passport = require('passport');
 const path = require('path');
 const config = require('./config/db');
+const account = require('./routes/account');
 
 const app = express();
 
 const port = 3000;
+
+app.use(cors());
+
+// app.use(bodyParser.json());
+app.use(express.json());
 
 mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -27,3 +33,5 @@ app.listen(port, () => {
 app.get('/', (req, res) => {
     res.send("Home page");
 });
+
+app.use('/account', account);
