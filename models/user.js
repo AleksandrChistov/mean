@@ -39,3 +39,10 @@ module.exports.addUser = function(newUser, callback) {
         newUser.save(callback);
     });
 }
+
+module.exports.comparePass = function(passFromUser, passFromDb, callback) {
+    bcrypt.compare(passFromUser, passFromDb, (err, isMatch) => {
+        if (err) throw err;
+        callback(null, isMatch);
+    })
+}
