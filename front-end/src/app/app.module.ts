@@ -12,6 +12,11 @@ import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 
 @NgModule({
   declarations: [
@@ -28,6 +33,12 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     FlashMessagesModule.forRoot(),
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:3000"],
+      },
+    }),
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

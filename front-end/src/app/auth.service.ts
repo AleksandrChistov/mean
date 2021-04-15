@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,10 @@ export class AuthService {
   private _token: string | null;
   private _user: any;
 
-  constructor(private _http: HttpClient) { }
+  constructor(
+    private _http: HttpClient,
+    private _jwtHelper: JwtHelperService
+  ) { }
 
   registerUser(user: any) {
     const headers = new HttpHeaders();
@@ -37,5 +41,9 @@ export class AuthService {
     this._token = null;
     this._user = null;
     localStorage.clear();
+  }
+
+  isAuthenticated(): boolean {
+    return !this._jwtHelper.isTokenExpired();
   }
 }

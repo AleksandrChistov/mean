@@ -24,4 +24,8 @@ export class HeaderComponent implements OnInit {
     this._flashMessagesService.show('You are logged out', { cssClass: 'alert-success' });
     this._router.navigate(['/auth']);
   }
+
+  get isAuthenticated(): boolean {
+    return this._authService.isAuthenticated();
+  }
 }
