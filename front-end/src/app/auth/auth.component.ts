@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -8,10 +9,12 @@ import { AuthService } from '../auth.service';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
 
   public login: string;
   public password: string;
+
+  private _sub: Subscription
 
   constructor(
     private _flashMessagesService: FlashMessagesService,
@@ -20,6 +23,12 @@ export class AuthComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    if (this._sub) {
+      this._sub.unsubscribe();
+    }
   }
 
   singIn() {
@@ -32,7 +41,7 @@ export class AuthComponent implements OnInit {
       password: this.password,
     }
 
-    this._authService.authUser(user).subscribe((data: any) => {
+    this._sub = this._authService.authUser(user).subscribe((data: any) => {
       if (!data.success) {
         this._flashMessagesService.show(data.msg, { cssClass: 'alert-danger' });
         return;

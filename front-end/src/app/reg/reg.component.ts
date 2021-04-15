@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -8,12 +9,14 @@ import { AuthService } from '../auth.service';
   templateUrl: './reg.component.html',
   styleUrls: ['./reg.component.scss']
 })
-export class RegComponent implements OnInit {
+export class RegComponent implements OnInit, OnDestroy {
 
   public name: string;
   public login: string;
   public email: string;
   public password: string;
+
+  private _sub: Subscription
 
   constructor(
     private _flashMessagesService: FlashMessagesService,
@@ -22,6 +25,12 @@ export class RegComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    if (this._sub) {
+      this._sub.unsubscribe();
+    }
   }
 
   singUp() {
@@ -36,7 +45,7 @@ export class RegComponent implements OnInit {
       password: this.password,
     }
 
-    this._authService.registerUser(user).subscribe((data: any) => {
+    this._sub = this._authService.registerUser(user).subscribe((data: any) => {
       if (!data.success) {
         this._flashMessagesService.show(data.msg, { cssClass: 'alert-danger' });
         this._router.navigate(['/reg']);
