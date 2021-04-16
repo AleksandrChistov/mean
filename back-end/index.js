@@ -40,4 +40,16 @@ app.get('/', (req, res) => {
     Post.find().then(posts => res.json(posts));
 });
 
+app.get('/post/:id', (req, res) => {
+    const url = req.url.split('/');
+    const id = url[2];
+    Post.findById(id).then(post => res.json(post));
+});
+
+app.delete('/post/:id', (req, res) => {
+    const url = req.url.split('/');
+    const id = url[2];
+    Post.deleteOne({ _id: id }).then(() => res.json({ success: true }));
+});
+
 app.use('/account', account);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { catchError } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   public category: string = 'world';
   public title: string;
@@ -27,6 +27,12 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    if (this._sub) {
+      this._sub.unsubscribe();
+    }
   }
 
   createPost() {

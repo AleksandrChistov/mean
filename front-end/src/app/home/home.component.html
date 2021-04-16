@@ -34,7 +34,7 @@
               <small class="text-muted">{{ post.date | date:'short' }}</small>
             </div>
             <h3>
-              <a class="text-dark" href="#">{{ post.title }}</a>
+              <a class="text-dark" [routerLink]="['post', post._id]">{{ post.title }}</a>
             </h3>
             <quill-view [content]="post.text | slice:0:253"></quill-view>
           </div>
