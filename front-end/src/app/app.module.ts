@@ -15,6 +15,7 @@ import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthService } from './auth.service';
 import { PostComponent } from './post/post.component';
+import { SortPipe } from './sort.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -28,7 +29,8 @@ export function tokenGetter() {
     RegComponent,
     AuthComponent,
     DashboardComponent,
-    PostComponent
+    PostComponent,
+    SortPipe
   ],
   imports: [
     BrowserModule,

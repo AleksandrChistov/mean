@@ -22,6 +22,7 @@ interface Post {
 export class HomeComponent implements OnInit, OnDestroy {
 
   public posts: Post[];
+  public category: string;
   private _sub: Subscription
 
   constructor(
@@ -40,5 +41,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this._sub) {
       this._sub.unsubscribe();
     }
+  }
+
+  setCategory(name: string): void {
+    this.category = name;
   }
 }
