@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,13 @@ export class AuthService {
     return this._http.post('http://localhost:3000/account/auth', user, { headers });
   }
 
+  createPost(post: any) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this._http.post('http://localhost:3000/account/dashboard', post, { headers });
+  }
+
   storeUser(token: string, user: any): void {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -45,5 +53,9 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !this._jwtHelper.isTokenExpired();
+  }
+
+  getAllPosts(): Observable<any> {
+    return this._http.get('http://localhost:3000');
   }
 }

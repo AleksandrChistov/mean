@@ -6,6 +6,7 @@ const passport = require('passport');
 const path = require('path');
 const config = require('./config/db');
 const account = require('./routes/account');
+const Post = require('./models/post');
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use(cors());
 require('./config/passport')(passport);
 
 // app.use(bodyParser.json());
-app.use(express.json());
+app.use(express.json({limit: '10mb'}));
 
 mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -36,7 +37,7 @@ app.listen(port, () => {
 });
 
 app.get('/', (req, res) => {
-    res.send("Home page");
+    Post.find().then(posts => res.json(posts));
 });
 
 app.use('/account', account);
