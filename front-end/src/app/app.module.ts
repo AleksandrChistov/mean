@@ -1,21 +1,16 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
-import { FlashMessagesModule } from 'angular2-flash-messages';
-import { QuillModule } from 'ngx-quill';
-
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsModule } from '@ngxs/store';
+import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
-import { RegComponent } from './reg/reg.component';
-import { AuthComponent } from './auth/auth.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AuthService } from './auth.service';
-import { PostComponent } from './post/post.component';
-import { SortPipe } from './sort.pipe';
+import { TodoComponent } from './components/todo/todo.component';
+import { TodoKeysState } from './store/state/todo-keys.state';
+import { TodoState } from './store/state/todo.state';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -24,29 +19,26 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    HeaderComponent,
-    RegComponent,
-    AuthComponent,
-    DashboardComponent,
-    PostComponent,
-    SortPipe
+    TodoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
+    ReactiveFormsModule,
+    NgxsModule.forRoot([
+      TodoState,
+      TodoKeysState
+    ], {
+      developmentMode: !environment.production
+    }),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:3000"],
       },
     }),
-    FlashMessagesModule.forRoot(),
-    QuillModule.forRoot()
   ],
-  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

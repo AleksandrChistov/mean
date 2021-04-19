@@ -1,15 +1,15 @@
 <div class="nav-scroller py-1 mb-2">
     <nav class="nav d-flex justify-content-between">
-      <a class="p-2 text-muted" href="#" (click)="setCategory('world')">World</a>
-      <a class="p-2 text-muted" href="#" (click)="setCategory('technology')">Technology</a>
-      <a class="p-2 text-muted" href="#" (click)="setCategory('design')">Design</a>
-      <a class="p-2 text-muted" href="#" (click)="setCategory('culture')">Culture</a>
-      <a class="p-2 text-muted" href="#" (click)="setCategory('business')">Business</a>
-      <a class="p-2 text-muted" href="#" (click)="setCategory('opinion')">Opinion</a>
-      <a class="p-2 text-muted" href="#" (click)="setCategory('science')">Science</a>
-      <a class="p-2 text-muted" href="#" (click)="setCategory('health')">Health</a>
-      <a class="p-2 text-muted" href="#" (click)="setCategory('style')">Style</a>
-      <a class="p-2 text-muted" href="#" (click)="setCategory('travel')">Travel</a>
+      <a class="p-2 text-muted" href="#" (click)="setCategory($event, 'world')">World</a>
+      <a class="p-2 text-muted" href="#" (click)="setCategory($event, 'technology')">Technology</a>
+      <a class="p-2 text-muted" href="#" (click)="setCategory($event, 'design')">Design</a>
+      <a class="p-2 text-muted" href="#" (click)="setCategory($event, 'culture')">Culture</a>
+      <a class="p-2 text-muted" href="#" (click)="setCategory($event, 'business')">Business</a>
+      <a class="p-2 text-muted" href="#" (click)="setCategory($event, 'opinion')">Opinion</a>
+      <a class="p-2 text-muted" href="#" (click)="setCategory($event, 'science')">Science</a>
+      <a class="p-2 text-muted" href="#" (click)="setCategory($event, 'health')">Health</a>
+      <a class="p-2 text-muted" href="#" (click)="setCategory($event, 'style')">Style</a>
+      <a class="p-2 text-muted" href="#" (click)="setCategory($event, 'travel')">Travel</a>
     </nav>
 </div>
 
@@ -19,7 +19,7 @@
         <div class="col-md-8 px-0 p-5">
             <h1 class="display-4 font-italic">Welcome!</h1>
             <p class="lead my-3">This blog publishes news from the world of technology, business, travel, culture, fashion, health. Join us, register now and write your first post!</p>
-            <p class="lead mb-0"><a routerLink="/reg" class="text-white font-weight-bold">Registration...</a></p>
+            <p class="lead mb-0"><a routerLink="/lazy/reg" class="text-white font-weight-bold">Registration...</a></p>
         </div>
     </div>
 </div>

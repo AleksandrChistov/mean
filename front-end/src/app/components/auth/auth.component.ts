@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -41,16 +41,23 @@ export class AuthComponent implements OnInit, OnDestroy {
       password: this.password,
     }
 
-    this._sub = this._authService.authUser(user).subscribe((data: any) => {
-      if (!data.success) {
-        this._flashMessagesService.show(data.msg, { cssClass: 'alert-danger' });
-        return;
-      }
+    this._sub = this._authService.authUser(user).subscribe(
+      (data: any) => {
+        if (!data.success) {
+          this._flashMessagesService.show(data.msg, { cssClass: 'alert-danger' });
+          return;
+        }
 
-      this._flashMessagesService.show("You have successfully logged in!", { cssClass: 'alert-success' });
-      this._router.navigate(['/dashboard']);
-      this._authService.storeUser(data.token, data.user);
-    })
+        this._flashMessagesService.show("You have successfully logged in!", { cssClass: 'alert-success' });
+        this._router.navigate(['/dashboard']);
+        this._authService.storeUser(data.token, data.user);
+      },
+      (error: Error) => {
+        this._flashMessagesService.show(error.message, { cssClass: 'alert-danger' });
+        console.error(error);
+      },
+      () => console.log('Completed!')
+    )
   }
 
   checkAllFields(): boolean {

@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { AuthService } from '../auth.service';
+import { AddUser } from '../../store/actions/user.action';
+import { AuthService } from '../../auth.service';
+import { User } from '../../store/models/User';
 
 @Component({
   selector: 'app-reg',
@@ -22,6 +25,7 @@ export class RegComponent implements OnInit, OnDestroy {
     private _flashMessagesService: FlashMessagesService,
     private _authService: AuthService,
     private _router: Router,
+    private store: Store
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +48,8 @@ export class RegComponent implements OnInit, OnDestroy {
       email: this.email,
       password: this.password,
     }
+
+    this.addUser(user);
 
     this._sub = this._authService.registerUser(user).subscribe((data: any) => {
       if (!data.success) {
@@ -76,5 +82,9 @@ export class RegComponent implements OnInit, OnDestroy {
     }
 
     return true;
+  }
+
+  addUser(user: User): void {
+    this.store.dispatch(new AddUser(user));
   }
 }

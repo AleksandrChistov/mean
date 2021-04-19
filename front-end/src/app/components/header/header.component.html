@@ -5,8 +5,8 @@
         <a *ngIf="isAuthenticated" class="p-2 text-dark" routerLink='/dashboard'>Dashboard</a>
     </nav>
     <ng-container *ngIf="!isAuthenticated">
-        <a class="btn btn-outline-primary mr-3" routerLink='/auth'>Sign in</a>
-        <a class="btn btn-outline-primary mr-3" routerLink='/reg'>Sign up</a>
+        <a class="btn btn-outline-primary mr-3" routerLink='/lazy/auth'>Sign in</a>
+        <a class="btn btn-outline-primary mr-3" routerLink='/lazy/reg'>Sign up</a>
     </ng-container>
     <a *ngIf="isAuthenticated" class="btn btn-outline-warning" (click)="logoutUser()">Logout</a>
 </div>

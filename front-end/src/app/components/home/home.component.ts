@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { catchError } from 'rxjs/operators';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { of } from 'rxjs/internal/observable/of';
-import { AuthService } from '../auth.service';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { catchError } from 'rxjs/operators';
+import { AuthService } from '../../auth.service';
 
 interface Post {
   category: string;
@@ -43,7 +43,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  setCategory(name: string): void {
+  setCategory(event: Event, name: string): void {
+    event.preventDefault();
     this.category = name;
   }
 }
